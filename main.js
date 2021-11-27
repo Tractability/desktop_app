@@ -9,13 +9,18 @@ const createWindow = () => {
     const mainWindow = new BrowserWindow({});
 
     mainWindow.loadFile('index.html');
+    return mainWindow;
 }
 
 app.whenReady().then(() => {
-    createWindow();
+    mainWindow = createWindow();
 
     app.on('activate', ()=> {
         if(BrowserWindow.getAllWindows().length === 0) createWindow();
+    })
+    
+    mainWindow.on('closed', () => {
+        app.quit();
     })
 })
 
